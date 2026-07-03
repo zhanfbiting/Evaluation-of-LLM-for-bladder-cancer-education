@@ -1,0 +1,25 @@
+﻿item_code,item_label,model_under_evaluation,model_label,均值,标准差,中位数
+q1,Clear aims,deepseek,DeepSeek,4.9,0.3077935056255462,5.0
+q1,Clear aims,doubao,Doubao,4.85,0.36634754853252327,5.0
+q1,Clear aims,yuanbao,Yuanbao,4.8,0.41039134083406165,5.0
+q2,Achieves aims,deepseek,DeepSeek,4.8,0.4103913408340617,5.0
+q2,Achieves aims,doubao,Doubao,4.55,0.6048053188292993,5.0
+q2,Achieves aims,yuanbao,Yuanbao,4.8,0.41039134083406176,5.0
+q3,Relevance,deepseek,DeepSeek,5.0,0.0,5.0
+q3,Relevance,doubao,Doubao,5.0,0.0,5.0
+q3,Relevance,yuanbao,Yuanbao,5.0,0.0,5.0
+q4,Sources,deepseek,DeepSeek,1.05,0.22360679774997896,1.0
+q4,Sources,doubao,Doubao,1.0,0.0,1.0
+q4,Sources,yuanbao,Yuanbao,1.15,0.36634754853252327,1.0
+q5,Timeliness,deepseek,DeepSeek,1.0,0.0,1.0
+q5,Timeliness,doubao,Doubao,1.0,0.0,1.0
+q5,Timeliness,yuanbao,Yuanbao,1.0,0.0,1.0
+q6,Balance,deepseek,DeepSeek,4.15,0.6708203932499369,4.0
+q6,Balance,doubao,Doubao,3.95,0.6048053188292994,4.0
+q6,Balance,yuanbao,Yuanbao,4.25,0.5501196042201808,4.0
+q7,Support resources,deepseek,DeepSeek,1.95,0.8870412083230169,2.0
+q7,Support resources,doubao,Doubao,1.1,0.3077935056255462,1.0
+q7,Support resources,yuanbao,Yuanbao,1.65,0.7451598203705946,2.0
+q8,Uncertainty,deepseek,DeepSeek,3.5,1.0513149660756937,3.5
+q8,Uncertainty,doubao,Doubao,3.0,0.9176629354822471,3.0
+q8,Uncertainty,yuanbao,Yuanbao,3.55,1.190974832912761,3.0

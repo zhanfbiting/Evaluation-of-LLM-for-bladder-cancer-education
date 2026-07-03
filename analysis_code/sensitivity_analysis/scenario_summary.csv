@@ -1,0 +1,16 @@
+﻿weight_scheme,threshold_percentile,quality_cutoff,risk_cutoff,high_risk_n,high_score_high_risk_n,high_score_high_risk_cases
+AHP group,70,25.5,0.2663171161447744,18,4,Yuanbao-Q5; DeepSeek-Q8; Yuanbao-Q15; DeepSeek-Q18
+Equal weights,70,25.5,0.3333333333333333,28,8,Doubao-Q3; Yuanbao-Q5; DeepSeek-Q8; Doubao-Q11; Yuanbao-Q15; Yuanbao-Q16; Doubao-Q18; Yuanbao-Q18
+expert_1,70,25.5,0.26544245250551896,18,4,Yuanbao-Q5; DeepSeek-Q8; Yuanbao-Q15; DeepSeek-Q18
+expert_2,70,25.5,0.2673223314456034,18,4,Yuanbao-Q5; DeepSeek-Q8; Yuanbao-Q15; DeepSeek-Q18
+expert_3,70,25.5,0.2643232965151873,18,4,Yuanbao-Q5; DeepSeek-Q8; Yuanbao-Q15; DeepSeek-Q18
+AHP group,75,25.5,0.2918222453080616,16,3,Yuanbao-Q5; DeepSeek-Q8; Yuanbao-Q15
+Equal weights,75,25.5,0.3333333333333333,28,8,Doubao-Q3; Yuanbao-Q5; DeepSeek-Q8; Doubao-Q11; Yuanbao-Q15; Yuanbao-Q16; Doubao-Q18; Yuanbao-Q18
+expert_1,75,25.5,0.29013922866370634,16,3,Yuanbao-Q5; DeepSeek-Q8; Yuanbao-Q15
+expert_2,75,25.5,0.29807219589876166,16,3,Yuanbao-Q5; DeepSeek-Q8; Yuanbao-Q15
+expert_3,75,25.5,0.28540902041967686,17,4,Yuanbao-Q5; DeepSeek-Q8; Yuanbao-Q15; DeepSeek-Q18
+AHP group,80,25.5,0.2918222453080616,16,3,Yuanbao-Q5; DeepSeek-Q8; Yuanbao-Q15
+Equal weights,80,25.5,0.3333333333333333,28,8,Doubao-Q3; Yuanbao-Q5; DeepSeek-Q8; Doubao-Q11; Yuanbao-Q15; Yuanbao-Q16; Doubao-Q18; Yuanbao-Q18
+expert_1,80,25.5,0.29013922866370634,16,3,Yuanbao-Q5; DeepSeek-Q8; Yuanbao-Q15
+expert_2,80,25.5,0.29807219589876166,16,3,Yuanbao-Q5; DeepSeek-Q8; Yuanbao-Q15
+expert_3,80,25.5,0.28540902041967686,17,4,Yuanbao-Q5; DeepSeek-Q8; Yuanbao-Q15; DeepSeek-Q18

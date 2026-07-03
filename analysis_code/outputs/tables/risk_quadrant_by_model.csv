@@ -1,0 +1,13 @@
+﻿model_under_evaluation,quadrant,model_label,回答数,占该模型回答比例
+deepseek,低分-低风险,DeepSeek,2,0.1
+deepseek,低分-高风险,DeepSeek,5,0.25
+deepseek,高分-低风险,DeepSeek,12,0.6
+deepseek,高分-高风险,DeepSeek,1,0.05
+doubao,低分-低风险,Doubao,11,0.55
+doubao,低分-高风险,Doubao,5,0.25
+doubao,高分-低风险,Doubao,4,0.2
+doubao,高分-高风险,Doubao,0,0.0
+yuanbao,低分-低风险,Yuanbao,4,0.2
+yuanbao,低分-高风险,Yuanbao,3,0.15
+yuanbao,高分-低风险,Yuanbao,11,0.55
+yuanbao,高分-高风险,Yuanbao,2,0.1
