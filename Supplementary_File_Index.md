@@ -14,8 +14,10 @@ S1–S8 identify the supplementary groups used in the manuscript. Each group may
 | S2 | `Publishable_Supplementary/Supplementary_Data_S2_guideline_pairwise_recalculated.csv` | Paired tests and Bonferroni comparisons |
 | S3 | `Supplementary_Table_S3_Nursing_Sensitive_Question_Analysis.xlsx`: `S1_Classification`, `S2_Group_summary`, `S3_Question_metrics`, `S4_Notes` | Five reporting categories, nursing-sensitive designation, exploratory summaries and notes |
 | S4 | `Supplementary_Table_S4_Question_Set_Content_Validity_Ratings.xlsx`: `说明`, `专家评分`, `结果汇总` | CVI assessment instructions, individual ratings and question-domain summary values |
+| S4 | `Publishable_Supplementary/Supplementary_Data_S4_CVI_question_level.csv` | English question-level I-CVI and S-CVI/Ave verification table |
 | S5 | `ai_generated_content_quality_scoring_form.xlsx`: `Sheet_20260119` | mDISCERN items and score ranges |
 | S5 | `Publishable_Supplementary/Supplementary_Data_S5_mDISCERN_scoring_outputs.csv` | Final q1–q8 and total scores, strengths and content concerns for all 60 responses |
+| S5 | `Publishable_Supplementary/Supplementary_Data_S5_mDISCERN_model_summary.csv`, `Supplementary_Data_S5_mDISCERN_item_summary.csv` | English product-level and item-level verification summaries |
 | S5 | `reviewer_scoring_outputs_clean.jsonl` | Structured response-level scoring input |
 | S6 | `risks_mapping.csv`, `strengths_mapping.csv` | Mapping of recorded observations to standardized descriptions |
 | S6 | `AHP_expert_judgment.xlsx`: `Risk_themes`, `Saaty_scale`, `expert_1`, `expert_2`, `expert_3`, `Current_group_geometric_mean`, `Weights_and_CR`, `Final_group_weights` | Theme definitions, judgment matrices, group weights and consistency metrics; Table 2 |

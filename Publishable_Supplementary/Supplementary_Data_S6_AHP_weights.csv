@@ -1,0 +1,10 @@
+﻿risk_theme,weight,weight_percent,rank
+"Potentially inaccurate data, classification, or wording",0.1887324967974217,18.873249679742177,1
+"Insufficient adverse-effect, risk, or follow-up details",0.1663280456861975,16.632804568619754,2
+Insufficient uncertainty or evidence grading,0.1474409670946958,14.744096709469586,3
+Insufficient explanation of examination limitations or applicability,0.1177011987688668,11.770119876886683,4
+Overly absolute wording that may overlook individual differences,0.1035993507954459,10.359935079544597,5
+Insufficient individualization,0.1026302480508715,10.263024805087152,6
+Lack of evidence sources or guideline citations,0.0931977302685189,9.319773026851896,7
+Lack of timeliness or update statements,0.0511835479448468,5.118354794484684,8
+Lack of additional support resources or care pathways,0.0291864145931347,2.9186414593134757,9
