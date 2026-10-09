@@ -14,7 +14,7 @@ S1–S8 identify the supplementary groups used in the manuscript. Each group may
 | S2 | `Publishable_Supplementary/Supplementary_Data_S2_guideline_pairwise_recalculated.csv` | Paired tests and Bonferroni comparisons |
 | S3 | `Supplementary_Table_S3_Nursing_Sensitive_Question_Analysis.xlsx`: `S1_Classification`, `S2_Group_summary`, `S3_Question_metrics`, `S4_Notes` | Five reporting categories, nursing-sensitive designation, exploratory summaries and notes |
 | S4 | `Supplementary_Table_S4_Question_Set_Content_Validity_Ratings.xlsx`: `说明`, `专家评分`, `结果汇总` | CVI assessment instructions, individual ratings and question-domain summary values |
-| S4 | `Publishable_Supplementary/Supplementary_Data_S4_CVI_question_level.csv` | English question-level I-CVI and S-CVI/Ave verification table |
+| S4 | `Publishable_Supplementary/Supplementary_Data_S4_CVI_question_level.csv`, `Supplementary_Data_S4_CVI_summary.csv` | English question-level I-CVI values and domain/overall S-CVI/Ave verification tables |
 | S5 | `ai_generated_content_quality_scoring_form.xlsx`: `Sheet_20260119` | mDISCERN items and score ranges |
 | S5 | `Publishable_Supplementary/Supplementary_Data_S5_mDISCERN_scoring_outputs.csv` | Final q1–q8 and total scores, strengths and content concerns for all 60 responses |
 | S5 | `Publishable_Supplementary/Supplementary_Data_S5_mDISCERN_model_summary.csv`, `Supplementary_Data_S5_mDISCERN_item_summary.csv` | English product-level and item-level verification summaries |

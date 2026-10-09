@@ -1,4 +1,4 @@
-﻿question_id,question_text_en,i_cvi_relevance,i_cvi_clarity,i_cvi_patient_education,i_cvi_necessity,s_cvi_ave_mean
+﻿question_id,question_text_en,i_cvi_relevance,i_cvi_clarity,i_cvi_patient_education,i_cvi_necessity,mean_i_cvi_across_domains
 Q1,Is hematuria necessarily bladder cancer?,1.0,1.0,1.0,1.0,1.0
 Q2,What are the early symptoms of bladder cancer in men?,1.0,0.8,1.0,1.0,0.95
 Q3,"Besides hematuria, can bladder cancer cause urinary frequency, urgency, dysuria, or nocturia?",1.0,1.0,1.0,1.0,1.0

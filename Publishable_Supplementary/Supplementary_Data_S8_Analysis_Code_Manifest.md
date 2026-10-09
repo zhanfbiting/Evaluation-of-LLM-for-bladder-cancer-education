@@ -1,5 +1,7 @@
 # Supplementary Data S8: Analysis Code and Manifest
 
+Repository: `https://github.com/zhanfbiting/Evaluation-of-LLM-for-bladder-cancer-education`
+
 ## Canonical analysis code
 
 - `analysis_code/analysis_pipeline.py`: mDISCERN, readability, risk-theme, AHP, WRS, and exploratory analyses.
