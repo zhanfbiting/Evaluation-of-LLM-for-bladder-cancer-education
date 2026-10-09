@@ -5,6 +5,7 @@ import config
 from statistics_utils import (
     cochran_q_test,
     friedman_test,
+    pairwise_exact_mcnemar,
     pairwise_wilcoxon,
     spearman_table,
     summarize_by_model,
@@ -175,6 +176,7 @@ def risk_theme_analysis(label_df: pd.DataFrame, question_meta_df: pd.DataFrame) 
     )
 
     cochran_rows = []
+    pairwise_frames = []
     for label_name in labels:
         subset = incidence[incidence["label"] == label_name]
         binary_df = subset[config.MODEL_ID_ORDER]
@@ -187,10 +189,14 @@ def risk_theme_analysis(label_df: pd.DataFrame, question_meta_df: pd.DataFrame) 
                 "p_value": p_value,
             }
         )
+        pairwise_df = pairwise_exact_mcnemar(binary_df)
+        pairwise_df.insert(0, "label", label_name)
+        pairwise_frames.append(pairwise_df)
 
     return {
         "risk_theme_summary": summary,
         "risk_theme_cochran_q": pd.DataFrame(cochran_rows).sort_values("p_value", na_position="last"),
+        "risk_theme_pairwise_exact_mcnemar": pd.concat(pairwise_frames, ignore_index=True),
     }
 
 

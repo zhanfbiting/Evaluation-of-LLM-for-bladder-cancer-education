@@ -119,6 +119,33 @@ def cochran_q_test(binary_wide_df: pd.DataFrame) -> tuple[float, float]:
     return float(statistic), float(p_value)
 
 
+def pairwise_exact_mcnemar(binary_wide_df: pd.DataFrame) -> pd.DataFrame:
+    """Run paired exact McNemar tests with Bonferroni correction."""
+    rows = []
+    model_pairs = list(combinations(config.MODEL_ID_ORDER, 2))
+    for model_a, model_b in model_pairs:
+        paired = binary_wide_df[[model_a, model_b]].dropna().astype(int)
+        a_only = int(((paired[model_a] == 1) & (paired[model_b] == 0)).sum())
+        b_only = int(((paired[model_a] == 0) & (paired[model_b] == 1)).sum())
+        discordant = a_only + b_only
+        p_value = 1.0 if discordant == 0 else float(
+            stats.binomtest(a_only, discordant, p=0.5, alternative="two-sided").pvalue
+        )
+        rows.append(
+            {
+                "model_a": config.MODEL_LABEL_MAP[model_a],
+                "model_b": config.MODEL_LABEL_MAP[model_b],
+                "n_pairs": len(paired),
+                "a_only": a_only,
+                "b_only": b_only,
+                "p_value": p_value,
+            }
+        )
+    result_df = pd.DataFrame(rows)
+    result_df["p_value_bonferroni"] = (result_df["p_value"] * len(model_pairs)).clip(upper=1.0)
+    return result_df
+
+
 def spearman_table(df: pd.DataFrame, x_col: str, y_col: str) -> pd.DataFrame:
     rows = []
 
