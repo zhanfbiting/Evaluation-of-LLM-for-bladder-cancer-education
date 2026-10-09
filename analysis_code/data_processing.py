@@ -3,7 +3,6 @@ from __future__ import annotations
 import csv
 import json
 import re
-import subprocess
 from collections import Counter
 from pathlib import Path
 from xml.etree import ElementTree as ET
@@ -37,13 +36,7 @@ def _clean_loaded_answer_text(text: str) -> str:
 
 
 def _read_answer_docx_as_text(path: Path) -> str:
-    result = subprocess.run(
-        ["textutil", "-convert", "txt", "-stdout", str(path)],
-        capture_output=True,
-        text=True,
-        check=True,
-    )
-    return _clean_loaded_answer_text(result.stdout)
+    return _clean_loaded_answer_text(_read_docx_as_text(path))
 
 
 def _question_body_to_regex(question: str) -> str:
@@ -255,29 +248,11 @@ def load_glossary_terms() -> set[str]:
 
 
 def build_professional_term_vocabulary() -> tuple[set[str], pd.DataFrame]:
-    glossary_terms = load_glossary_terms()
-    term_rows = []
-    active_terms: set[str] = set()
-    for model_id in config.MODEL_ID_ORDER:
-        parsed = _parse_term_summary(config.MODEL_TERM_SUMMARY_MAP[model_id])
-        for term, count in parsed["term_counts"].items():
-            if count > 0:
-                active_terms.add(term)
-            term_rows.append(
-                {
-                    "model_under_evaluation": model_id,
-                    "model_label": config.MODEL_LABEL_MAP[model_id],
-                    "term": term,
-                    "count": count,
-                }
-            )
-    if not active_terms:
-        raise ValueError("未从现有专业术语汇总文件中解析出任何非零术语。")
-    missing_terms = sorted(term for term in active_terms if term not in glossary_terms)
-    if missing_terms:
-        raise ValueError(f"以下术语未包含在词汇表中：{missing_terms[:10]}")
-    vocabulary_df = pd.DataFrame(term_rows)
-    return active_terms, vocabulary_df
+    """Use the same complete glossary for all products; do not fit old totals."""
+    terms = load_glossary_terms()
+    if not terms:
+        raise ValueError("Medical glossary is empty.")
+    return terms, pd.DataFrame({"term": sorted(terms), "source": "shared medical glossary"})
 
 
 def _read_docx_as_text(path: Path) -> str:
@@ -310,7 +285,7 @@ def _contains_content(token: str) -> bool:
 def split_segmented_answers(question_meta: pd.DataFrame) -> pd.DataFrame:
     rows = []
     for model_id in config.MODEL_ID_ORDER:
-        full_text = _read_docx_as_text(config.MODEL_DOCX_MAP[model_id])
+        full_text = _read_docx_as_text(config.MODEL_SEGMENTED_DOCX_MAP[model_id])
         matches = []
         for record in question_meta.to_dict(orient="records"):
             pattern = _build_heading_pattern(record["question_id"], record["question_text"])
@@ -374,12 +349,49 @@ def _count_professional_terms(tokens: list[str], term_vocab: set[str]) -> Counte
 
 
 def _character_count(text: str) -> int:
-    return sum(1 for ch in text if not ch.isspace())
+    """Count letters and digits; whitespace, punctuation, and symbols are excluded."""
+    return sum(char.isalnum() for char in text)
 
 
 def _sentence_count(text: str) -> int:
-    pieces = [piece.strip() for piece in SENTENCE_SPLIT_REGEX.split(text) if piece.strip()]
-    return max(len(pieces), 1)
+    # Full stops/question/exclamation marks delimit sentences, not list numbers
+    # or decimal points. Semicolons alone are not complete sentence boundaries.
+    parts = re.split(r"[。！？!?]+|(?<!\d)\.(?!\d)", text)
+    return max(1, sum(_character_count(part) > 0 for part in parts))
+
+
+def _medical_character_matches(text: str, terms: set[str]) -> tuple[int, Counter]:
+    """Longest non-overlapping dictionary matches, using one shared glossary."""
+    by_first = {}
+    for term in terms:
+        key = re.sub(r"\s+", "", term)
+        if key and _character_count(key):
+            by_first.setdefault(key[0], []).append(key)
+    for candidates in by_first.values():
+        candidates.sort(key=lambda item: (-len(item), item))
+    compact = re.sub(r"\s+", "", text)
+    offset = 0
+    counts = Counter()
+    matched_chars = 0
+    while offset < len(compact):
+        matched = None
+        for term in by_first.get(compact[offset], ()):
+            if compact.startswith(term, offset):
+                # Do not count a Latin word embedded in another Latin word.
+                if term[0].isascii() and term[0].isalpha() and offset and compact[offset-1].isascii() and compact[offset-1].isalpha():
+                    continue
+                end = offset + len(term)
+                if term[-1].isascii() and term[-1].isalpha() and end < len(compact) and compact[end].isascii() and compact[end].isalpha():
+                    continue
+                matched = term
+                break
+        if matched is None:
+            offset += 1
+        else:
+            counts[matched] += 1
+            matched_chars += _character_count(matched)
+            offset += len(matched)
+    return matched_chars, counts
 
 
 def build_readability_table(
@@ -387,80 +399,54 @@ def build_readability_table(
     segmented_answer_df: pd.DataFrame,
     term_vocab: set[str],
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    readability_rows = []
-    calibration_rows = []
+    """Calculate C, S and T on authoritative raw answers, without calibration.
 
+    Historical segmentation is retained for input identity audit only. Medical
+    character coverage is counted directly on the same raw text used for C/S.
+    """
+    keys = ["model_under_evaluation", "question_id"]
+    if answer_text_df.duplicated(keys).any() or segmented_answer_df.duplicated(keys).any():
+        raise ValueError("Duplicate product/question input keys.")
     merged = answer_text_df.merge(
-        segmented_answer_df,
-        on=["model_under_evaluation", "model_label", "question_id", "question_text"],
-        how="inner",
+        segmented_answer_df[keys + ["segmented_answer_text"]],
+        on=keys, how="left", validate="one_to_one",
     )
-    if len(merged) != len(answer_text_df):
-        raise ValueError("原始回答文本与分词回答文本未能一一对应。")
-
-    summary_info = {model_id: _parse_term_summary(path) for model_id, path in config.MODEL_TERM_SUMMARY_MAP.items()}
-    observed_ratio_by_model: dict[str, float] = {}
-    per_row_payloads: dict[str, list[dict]] = {model_id: [] for model_id in config.MODEL_ID_ORDER}
-
+    if merged["segmented_answer_text"].isna().any():
+        raise ValueError("Missing historical segmentation input.")
+    readability_rows, audit_rows = [], []
     for record in merged.to_dict(orient="records"):
-        term_counter = _count_professional_terms(record["segmented_tokens"], term_vocab)
-        professional_term_count = sum(term_counter.values())
-        segmented_token_count = record["segmented_token_count"]
-        if segmented_token_count == 0:
-            raise ValueError(f"问题 {record['question_id']} 的分词 token 数为 0。")
-        raw_term_ratio = professional_term_count / segmented_token_count
-
-        payload = {
-            "model_under_evaluation": record["model_under_evaluation"],
-            "model_label": record["model_label"],
-            "question_id": record["question_id"],
-            "question_text": record["question_text"],
-            "answer_text": record["answer_text"],
-            "total_chars": _character_count(record["answer_text"]),
-            "sentence_count": _sentence_count(record["answer_text"]),
-            "avg_sentence_length": _character_count(record["answer_text"]) / _sentence_count(record["answer_text"]),
-            "segmented_token_count": segmented_token_count,
-            "professional_term_count_raw": professional_term_count,
-            "professional_term_ratio_raw": raw_term_ratio,
-        }
-        per_row_payloads[record["model_under_evaluation"]].append(payload)
-
-    for model_id, payloads in per_row_payloads.items():
-        total_professional_terms = sum(item["professional_term_count_raw"] for item in payloads)
-        total_tokens = sum(item["segmented_token_count"] for item in payloads)
-        observed_ratio = total_professional_terms / total_tokens
-        observed_ratio_by_model[model_id] = observed_ratio
-        provided_ratio = summary_info[model_id]["provided_ratio"]
-        calibration_factor = provided_ratio / observed_ratio
-        calibration_rows.append(
-            {
-                "model_under_evaluation": model_id,
-                "model_label": config.MODEL_LABEL_MAP[model_id],
-                "provided_professional_term_total": summary_info[model_id]["provided_term_total"],
-                "provided_token_total": summary_info[model_id]["provided_token_total"],
-                "provided_ratio": provided_ratio,
-                "reconstructed_professional_term_total": total_professional_terms,
-                "reconstructed_token_total": total_tokens,
-                "reconstructed_ratio": observed_ratio,
-                "calibration_factor": calibration_factor,
-            }
-        )
-        for item in payloads:
-            calibrated_ratio = item["professional_term_ratio_raw"] * calibration_factor
-            readability_rows.append(
-                {
-                    **item,
-                    "professional_term_ratio": calibrated_ratio,
-                    "R": 17.5255
-                    + 0.0024 * item["total_chars"]
-                    + 0.04415 * item["avg_sentence_length"]
-                    - 18.3344 * (1 - calibrated_ratio),
-                }
-            )
-
-    readability_df = pd.DataFrame(readability_rows).sort_values(
-        ["question_id", "model_under_evaluation"]
-    ).reset_index(drop=True)
-    calibration_df = pd.DataFrame(calibration_rows).sort_values("model_under_evaluation").reset_index(drop=True)
-    return readability_df, calibration_df
-
+        text = record["answer_text"]
+        chars = _character_count(text)
+        if not chars:
+            raise ValueError("Empty response after excluding punctuation.")
+        sentences = _sentence_count(text)
+        medical_chars, counts = _medical_character_matches(text, term_vocab)
+        if medical_chars > chars:
+            raise ValueError("Medical character coverage exceeds total characters.")
+        ratio = medical_chars / chars
+        sentence_length = chars / sentences
+        readability_rows.append({
+            **{key: record[key] for key in ["model_under_evaluation", "model_label", "question_id", "question_text"]},
+            "answer_text": text, "total_chars": chars,
+            "sentence_count": sentences, "avg_sentence_length": sentence_length,
+            "medical_term_chars": medical_chars,
+            "medical_term_matches": sum(counts.values()),
+            "professional_term_ratio": ratio,
+            "R": 17.5255 + 0.0024 * chars + 0.04415 * sentence_length - 18.3344 * (1 - ratio),
+        })
+        raw_key = "".join(char for char in text if char.isalnum())
+        segmented_key = "".join(char for char in record["segmented_answer_text"] if char.isalnum())
+        from difflib import SequenceMatcher
+        audit_rows.append({
+            **{key: record[key] for key in keys},
+            "source_file": str(config.MODEL_DOCX_MAP[record["model_under_evaluation"]]),
+            "historical_segmentation_file": str(config.MODEL_SEGMENTED_DOCX_MAP[record["model_under_evaluation"]]),
+            "normalized_text_equal": raw_key == segmented_key,
+            "normalized_text_similarity": SequenceMatcher(None, raw_key, segmented_key, autojunk=False).ratio(),
+            "analysis_text": "original raw response",
+            "term_ratio_definition": "non-overlapping medical-term characters / total letters and digits",
+            "product_calibration_applied": False,
+        })
+    df = pd.DataFrame(readability_rows).sort_values(keys).reset_index(drop=True)
+    audit = pd.DataFrame(audit_rows).sort_values(keys).reset_index(drop=True)
+    return df, audit

@@ -24,9 +24,14 @@ MODEL_LABEL_MAP = {
     "yuanbao": "Yuanbao",
 }
 MODEL_DOCX_MAP = {
+    "deepseek": SUMMARY_DIR / "deepseek_raw.docx",
+    "doubao": SUMMARY_DIR / "doubao_raw.docx",
+    "yuanbao": SUMMARY_DIR / "yuanbao_raw.docx",
+}
+MODEL_SEGMENTED_DOCX_MAP = {
     "deepseek": SUMMARY_DIR / "deepseek.docx",
-    "doubao": SUMMARY_DIR / "doubao.docx",
-    "yuanbao": SUMMARY_DIR / "yuanbao.docx",
+    "doubao": SUMMARY_DIR / "yuanbao.docx",
+    "yuanbao": SUMMARY_DIR / "doubao.docx",
 }
 MODEL_TERM_SUMMARY_MAP = {
     "deepseek": SUMMARY_DIR / "deepseek_term_summary.txt",

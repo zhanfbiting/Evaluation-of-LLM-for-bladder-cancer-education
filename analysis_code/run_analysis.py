@@ -304,7 +304,7 @@ def main() -> None:
     segmented_answer_df = split_segmented_answers(question_meta_df)
     term_vocab, vocabulary_df = build_professional_term_vocabulary()
     label_df = build_label_table(score_df)
-    readability_df, calibration_df = build_readability_table(answer_text_df, segmented_answer_df, term_vocab)
+    readability_df, input_audit_df = build_readability_table(answer_text_df, segmented_answer_df, term_vocab)
 
     overall_results = overall_quality_analysis(score_df)
     mdiscern_results = mdiscern_item_analysis(score_df)
@@ -326,7 +326,7 @@ def main() -> None:
             "03_question_list": question_meta_df,
             "04_label_expanded": label_df,
             "05_readability": readability_df,
-            "06_readability_calibration": calibration_df,
+            "06_readability_input_audit": input_audit_df,
             "07_term_vocabulary": vocabulary_df,
             "08_segmented_answers": segmented_output,
             **overall_results,
