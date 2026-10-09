@@ -1,28 +1,28 @@
-﻿label,model_a,model_b,n_pairs,a_only,b_only,p_value,p_value_bonferroni
-部分数据、分类或表述可能不准确,DeepSeek,Doubao,20,3,2,1.0,1.0
-部分数据、分类或表述可能不准确,DeepSeek,Yuanbao,20,3,1,0.625,1.0
-部分数据、分类或表述可能不准确,Doubao,Yuanbao,20,2,1,1.0,1.0
-未充分说明副作用、风险或随访细节,DeepSeek,Doubao,20,1,1,1.0,1.0
-未充分说明副作用、风险或随访细节,DeepSeek,Yuanbao,20,1,1,1.0,1.0
-未充分说明副作用、风险或随访细节,Doubao,Yuanbao,20,1,1,1.0,1.0
-未充分说明不确定性或证据等级,DeepSeek,Doubao,20,3,1,0.625,1.0
-未充分说明不确定性或证据等级,DeepSeek,Yuanbao,20,3,3,1.0,1.0
-未充分说明不确定性或证据等级,Doubao,Yuanbao,20,1,3,0.625,1.0
-未充分说明检查局限性或适用条件,DeepSeek,Doubao,20,0,0,1.0,1.0
-未充分说明检查局限性或适用条件,DeepSeek,Yuanbao,20,0,2,0.5,1.0
-未充分说明检查局限性或适用条件,Doubao,Yuanbao,20,0,2,0.5,1.0
-用词较绝对，可能忽视个体差异,DeepSeek,Doubao,20,0,1,1.0,1.0
-用词较绝对，可能忽视个体差异,DeepSeek,Yuanbao,20,0,0,1.0,1.0
-用词较绝对，可能忽视个体差异,Doubao,Yuanbao,20,1,0,1.0,1.0
-个体化建议不足,DeepSeek,Doubao,20,0,1,1.0,1.0
-个体化建议不足,DeepSeek,Yuanbao,20,0,1,1.0,1.0
-个体化建议不足,Doubao,Yuanbao,20,1,1,1.0,1.0
-缺乏证据来源或指南引用,DeepSeek,Doubao,20,0,0,1.0,1.0
-缺乏证据来源或指南引用,DeepSeek,Yuanbao,20,0,0,1.0,1.0
-缺乏证据来源或指南引用,Doubao,Yuanbao,20,0,0,1.0,1.0
-未标注信息时效或更新日期,DeepSeek,Doubao,20,2,1,1.0,1.0
-未标注信息时效或更新日期,DeepSeek,Yuanbao,20,5,1,0.21875,0.65625
-未标注信息时效或更新日期,Doubao,Yuanbao,20,4,1,0.375,1.0
-未提供额外支持资源或就医渠道,DeepSeek,Doubao,20,0,8,0.0078125,0.0234375
-未提供额外支持资源或就医渠道,DeepSeek,Yuanbao,20,0,6,0.03125,0.09375
-未提供额外支持资源或就医渠道,Doubao,Yuanbao,20,5,3,0.7265625,1.0
+﻿risk_theme,model_a,model_b,n_pairs,a_only,b_only,p_value,p_value_bonferroni
+"Potentially inaccurate data, classification, or wording",DeepSeek,Doubao,20,3,2,1.0,1.0
+"Potentially inaccurate data, classification, or wording",DeepSeek,Yuanbao,20,3,1,0.625,1.0
+"Potentially inaccurate data, classification, or wording",Doubao,Yuanbao,20,2,1,1.0,1.0
+"Insufficient adverse-effect, risk, or follow-up details",DeepSeek,Doubao,20,1,1,1.0,1.0
+"Insufficient adverse-effect, risk, or follow-up details",DeepSeek,Yuanbao,20,1,1,1.0,1.0
+"Insufficient adverse-effect, risk, or follow-up details",Doubao,Yuanbao,20,1,1,1.0,1.0
+Insufficient uncertainty or evidence grading,DeepSeek,Doubao,20,3,1,0.625,1.0
+Insufficient uncertainty or evidence grading,DeepSeek,Yuanbao,20,3,3,1.0,1.0
+Insufficient uncertainty or evidence grading,Doubao,Yuanbao,20,1,3,0.625,1.0
+Insufficient explanation of examination limitations or applicability,DeepSeek,Doubao,20,0,0,1.0,1.0
+Insufficient explanation of examination limitations or applicability,DeepSeek,Yuanbao,20,0,2,0.5,1.0
+Insufficient explanation of examination limitations or applicability,Doubao,Yuanbao,20,0,2,0.5,1.0
+Overly absolute wording that may overlook individual differences,DeepSeek,Doubao,20,0,1,1.0,1.0
+Overly absolute wording that may overlook individual differences,DeepSeek,Yuanbao,20,0,0,1.0,1.0
+Overly absolute wording that may overlook individual differences,Doubao,Yuanbao,20,1,0,1.0,1.0
+Insufficient individualization,DeepSeek,Doubao,20,0,1,1.0,1.0
+Insufficient individualization,DeepSeek,Yuanbao,20,0,1,1.0,1.0
+Insufficient individualization,Doubao,Yuanbao,20,1,1,1.0,1.0
+Lack of evidence sources or guideline citations,DeepSeek,Doubao,20,0,0,1.0,1.0
+Lack of evidence sources or guideline citations,DeepSeek,Yuanbao,20,0,0,1.0,1.0
+Lack of evidence sources or guideline citations,Doubao,Yuanbao,20,0,0,1.0,1.0
+Lack of timeliness or update statements,DeepSeek,Doubao,20,2,1,1.0,1.0
+Lack of timeliness or update statements,DeepSeek,Yuanbao,20,5,1,0.21875,0.65625
+Lack of timeliness or update statements,Doubao,Yuanbao,20,4,1,0.375,1.0
+Lack of additional support resources or care pathways,DeepSeek,Doubao,20,0,8,0.0078125,0.0234375
+Lack of additional support resources or care pathways,DeepSeek,Yuanbao,20,0,6,0.03125,0.09375
+Lack of additional support resources or care pathways,Doubao,Yuanbao,20,5,3,0.7265625,1.0

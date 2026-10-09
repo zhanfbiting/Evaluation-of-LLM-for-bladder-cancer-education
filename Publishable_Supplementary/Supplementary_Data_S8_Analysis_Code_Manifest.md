@@ -22,6 +22,7 @@ Readability is reproduced by running `python rebuild_readability.py` from `analy
 - `Supplementary_Data_S2_guideline_pairwise_recalculated.csv`
 - `Supplementary_Data_S5_mDISCERN_scoring_outputs.csv`
 - `Supplementary_Data_S6_risk_theme_summary.csv`
+- `Supplementary_Data_S6_risk_theme_cochran_q.csv`
 - `Supplementary_Data_S6_risk_theme_pairwise_exact_mcnemar.csv`
 - `Supplementary_Data_S6_AHP_weights.csv`
 - `Supplementary_Data_S6_AHP_consistency.csv`
