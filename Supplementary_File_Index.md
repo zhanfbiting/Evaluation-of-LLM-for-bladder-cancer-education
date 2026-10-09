@@ -5,6 +5,7 @@ S1–S8 identify the supplementary groups used in the manuscript. Each group may
 | Group | Actual file / worksheet | Contents and manuscript use |
 |---|---|---|
 | S1 | `Supplementary_Table_S1_hot_search_to_question_mapping.csv` | Original search terms, mappings, occurrence and unique-entry counts; question-set construction and Table 1 |
+| S1 | `Supplementary_Table_S1_metadata.md` | Retrieval start/end date, one-time snapshot design, counting unit, and parent-term popularity limitation |
 | S2 | `Supplementary_Data_S2_Guideline_Concordance.xlsx`: `S7_Reference_standards`, `S9_Rubric`, `S10_Question_specific_criteria` | Question-specific expected content, source references and 0/1/2 criteria; guideline-related Methods |
 | S2 | Same workbook: `S1_Questions`, `S2_LLM_responses`, `S3_GC_scores` | Questions, 60 Chinese responses, both raters' item and total scores |
 | S2 | Same workbook: `S4_Model_summary`, `S5_Question_summary`, `S6_Reliability`, `S8_Sources` | Product/question summaries, reliability and source inventory; Tables 9/10 |
