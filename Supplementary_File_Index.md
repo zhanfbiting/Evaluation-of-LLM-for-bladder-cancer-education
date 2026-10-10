@@ -21,9 +21,7 @@ S1–S8 identify the supplementary groups used in the manuscript. Each group may
 | S5 | `reviewer_scoring_outputs_clean.jsonl` | Structured response-level scoring input |
 | S6 | `risks_mapping.csv`, `strengths_mapping.csv` | Mapping of recorded observations to standardized descriptions |
 | S6 | `AHP_expert_judgment.xlsx`: `Risk_themes`, `Saaty_scale`, `expert_1`, `expert_2`, `expert_3`, `Current_group_geometric_mean`, `Weights_and_CR`, `Final_group_weights` | Theme definitions, judgment matrices, group weights and consistency metrics; Table 2 |
-| S6 | `Intervention Plan Expert Consultation Questionnaire - Kuang Jianying.docx` | Expert qualification and consultation questionnaire |
-| S6 | `Intervention Plan Expert Consultation Questionnaire - Liu Yi.docx` | Expert qualification and consultation questionnaire |
-| S6 | `Intervention Plan Expert Consultation Questionnaire - Tian Jun.docx` | Expert qualification and consultation questionnaire |
+| S6 | `Publishable_Supplementary/Supplementary_Data_S6_Expert_Characteristics_Anonymized.csv` | Anonymized professional roles, titles, experience, familiarity and judgment-basis summary for the three AHP experts; the signed source questionnaires are retained in the study archive and are not included in the public package |
 | S6 | `Publishable_Supplementary/Supplementary_Data_S6_risk_theme_summary.csv` | Theme occurrence frequencies; Table 6 |
 | S6 | `Publishable_Supplementary/Supplementary_Data_S6_risk_theme_cochran_q.csv` | Cochran's Q statistic and P value for each binary risk theme |
 | S6 | `Publishable_Supplementary/Supplementary_Data_S6_risk_theme_pairwise_exact_mcnemar.csv` | All three exact McNemar comparisons for each risk theme, with Bonferroni-adjusted P values; risk-theme Results |

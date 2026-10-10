@@ -439,8 +439,8 @@ def build_readability_table(
         from difflib import SequenceMatcher
         audit_rows.append({
             **{key: record[key] for key in keys},
-            "source_file": str(config.MODEL_DOCX_MAP[record["model_under_evaluation"]]),
-            "historical_segmentation_file": str(config.MODEL_SEGMENTED_DOCX_MAP[record["model_under_evaluation"]]),
+            "source_file": f"source_data/model_outputs/{config.MODEL_DOCX_MAP[record['model_under_evaluation']].name}",
+            "historical_segmentation_file": f"source_data/model_outputs/{config.MODEL_SEGMENTED_DOCX_MAP[record['model_under_evaluation']].name}",
             "normalized_text_equal": raw_key == segmented_key,
             "normalized_text_similarity": SequenceMatcher(None, raw_key, segmented_key, autojunk=False).ratio(),
             "analysis_text": "original raw response",
