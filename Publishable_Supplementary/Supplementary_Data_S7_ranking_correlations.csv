@@ -1,0 +1,6 @@
+﻿comparison,weight_scheme,spearman_rho,p_value
+AHP group vs AHP group,AHP group,1.0,0.0
+AHP group vs Equal weights,Equal weights,0.8590226109049706,1.6459036065402425e-18
+AHP group vs expert_1,expert_1,0.9999849314758859,8.169327630919801e-133
+AHP group vs expert_2,expert_2,0.9998191790729913,1.6120307127626812e-101
+AHP group vs expert_3,expert_3,0.9977246358289585,1.228344348767791e-69

@@ -1,0 +1,21 @@
+﻿question_id,question_text_en,i_cvi_relevance,i_cvi_clarity,i_cvi_patient_education,i_cvi_necessity,mean_i_cvi_across_domains
+Q1,Is hematuria necessarily bladder cancer?,1.0,1.0,1.0,1.0,1.0
+Q2,What are the early symptoms of bladder cancer in men?,1.0,0.8,1.0,1.0,0.95
+Q3,"Besides hematuria, can bladder cancer cause urinary frequency, urgency, dysuria, or nocturia?",1.0,1.0,1.0,1.0,1.0
+Q4,"A bladder cancer patient has hematuria with blood clots. Is this serious, and how can bleeding be stopped quickly?",1.0,0.8,0.8,1.0,0.9
+Q5,How long can a patient live after being diagnosed with bladder cancer?,0.8,1.0,1.0,1.0,0.95
+Q6,"Is bladder cancer likely to recur, and how can recurrence be prevented?",1.0,1.0,1.0,1.0,1.0
+Q7,Is bladder cancer likely to metastasize to bone?,1.0,1.0,1.0,0.8,0.95
+Q8,"For high-grade invasive bladder cancer without metastasis, how many years can the patient live?",0.8,0.8,0.8,0.8,0.8
+Q9,"Can bladder cancer recur after transurethral resection, and what is the approximate recurrence risk?",1.0,1.0,1.0,1.0,1.0
+Q10,"What adverse effects can intravesical therapy cause after bladder cancer surgery, and what should patients note?",1.0,0.8,1.0,1.0,0.95
+Q11,Is surgery suitable for bladder cancer patients in their seventies?,1.0,0.8,1.0,1.0,0.95
+Q12,What treatment options are appropriate for bladder cancer patients in their seventies?,0.8,0.8,0.8,1.0,0.8500000000000001
+Q13,What targeted therapies are available for bladder cancer?,1.0,1.0,0.8,1.0,0.95
+Q14,Can BCG be used to treat bladder cancer?,0.8,1.0,1.0,1.0,0.95
+Q15,"Is radical cystectomy mandatory for invasive bladder cancer, or are bladder-preserving options available?",1.0,0.8,1.0,1.0,0.95
+Q16,What dietary restrictions apply to bladder cancer patients?,1.0,1.0,0.8,1.0,0.95
+Q17,"After surgery, will male bladder cancer patients have effects on sexual function or fertility?",0.8,1.0,1.0,1.0,0.95
+Q18,How much does bladder cancer treatment cost?,1.0,0.8,1.0,1.0,0.95
+Q19,Does follow-up cystoscopy for male bladder cancer require hospital admission?,0.8,1.0,1.0,1.0,0.95
+Q20,How should male bladder cancer patients change a urine or urostomy bag at home after surgery?,0.8,0.8,0.8,0.8,0.8

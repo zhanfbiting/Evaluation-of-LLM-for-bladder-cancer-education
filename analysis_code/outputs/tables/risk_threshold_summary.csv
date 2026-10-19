@@ -1,0 +1,2 @@
+﻿quality_cutoff,risk_cutoff,quality_rule,risk_rule
+25.5,0.29182224530806167,total >= 25.5 判定为高分,weighted_risk_score >= P75(0.292) 判定为高风险

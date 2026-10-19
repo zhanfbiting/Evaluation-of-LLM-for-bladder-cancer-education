@@ -1,0 +1,25 @@
+﻿item_code,item_label,model_a,model_b,n_pairs,statistic,p_value,rank_biserial,p_value_bonferroni
+q1,Clear aims,DeepSeek,Doubao,20,6.0,0.6547208460185769,0.2,1.0
+q1,Clear aims,DeepSeek,Yuanbao,20,7.0,0.4142161782425253,0.3333333333333333,1.0
+q1,Clear aims,Doubao,Yuanbao,20,6.0,0.6547208460185769,0.2,1.0
+q2,Achieves aims,DeepSeek,Doubao,20,10.0,0.0955807045456294,0.5555555555555556,0.28674211363688823
+q2,Achieves aims,DeepSeek,Yuanbao,20,10.5,1.0,0.0,1.0
+q2,Achieves aims,Doubao,Yuanbao,20,8.0,0.13166801602281422,-0.5555555555555556,0.3950040480684427
+q3,Relevance,DeepSeek,Doubao,20,0.0,1.0,0.0,1.0
+q3,Relevance,DeepSeek,Yuanbao,20,0.0,1.0,0.0,1.0
+q3,Relevance,Doubao,Yuanbao,20,0.0,1.0,0.0,1.0
+q4,Sources,DeepSeek,Doubao,20,0.0,0.31731050786291415,1.0,0.9519315235887424
+q4,Sources,DeepSeek,Yuanbao,20,0.0,0.15729920705028502,-1.0,0.4718976211508551
+q4,Sources,Doubao,Yuanbao,20,0.0,0.0832645166635504,-1.0,0.24979354999065123
+q5,Timeliness,DeepSeek,Doubao,20,0.0,1.0,0.0,1.0
+q5,Timeliness,DeepSeek,Yuanbao,20,0.0,1.0,0.0,1.0
+q5,Timeliness,Doubao,Yuanbao,20,0.0,1.0,0.0,1.0
+q6,Balance,DeepSeek,Doubao,20,13.5,0.24821307898992373,0.4,0.7446392369697712
+q6,Balance,DeepSeek,Yuanbao,20,18.0,0.5637028616507731,-0.2,1.0
+q6,Balance,Doubao,Yuanbao,20,9.0,0.0832645166635504,-0.6,0.24979354999065123
+q7,Support resources,DeepSeek,Doubao,20,0.0,0.0006290199752643491,1.0,0.0018870599257930472
+q7,Support resources,DeepSeek,Yuanbao,20,7.0,0.10671881632938239,0.6111111111111112,0.32015644898814716
+q7,Support resources,Doubao,Yuanbao,20,5.5,0.007526315166457874,-0.8333333333333334,0.022578945499373622
+q8,Uncertainty,DeepSeek,Doubao,20,11.0,0.018683874841108398,0.717948717948718,0.0560516245233252
+q8,Uncertainty,DeepSeek,Yuanbao,20,57.0,0.8580276569875211,-0.05,1.0
+q8,Uncertainty,Doubao,Yuanbao,20,22.0,0.04721904738913002,-0.580952380952381,0.14165714216739006
