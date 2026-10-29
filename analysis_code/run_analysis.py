@@ -27,7 +27,6 @@ from data_processing import (
     build_readability_table,
     load_answer_text_table,
     load_score_table,
-    split_segmented_answers,
 )
 from plotting_utils import save_figure, set_plot_theme, style_axes, style_colorbar
 
@@ -301,10 +300,9 @@ def main() -> None:
     score_df = load_score_table()
     answer_text_df = load_answer_text_table()
     question_meta_df = build_question_meta()
-    segmented_answer_df = split_segmented_answers(question_meta_df)
     term_vocab, vocabulary_df = build_professional_term_vocabulary()
     label_df = build_label_table(score_df)
-    readability_df, input_audit_df = build_readability_table(answer_text_df, segmented_answer_df, term_vocab)
+    readability_df = build_readability_table(answer_text_df, term_vocab)
 
     overall_results = overall_quality_analysis(score_df)
     mdiscern_results = mdiscern_item_analysis(score_df)
@@ -316,9 +314,6 @@ def main() -> None:
     score_output = score_df.copy()
     score_output["strengths"] = score_output["strengths"].apply(lambda values: "；".join(values))
     score_output["risks"] = score_output["risks"].apply(lambda values: "；".join(values))
-    segmented_output = segmented_answer_df.copy()
-    segmented_output["segmented_tokens"] = segmented_output["segmented_tokens"].apply(lambda values: " / ".join(values))
-
     _save_tables(
         {
             "01_score_master": score_output,
@@ -326,9 +321,7 @@ def main() -> None:
             "03_question_list": question_meta_df,
             "04_label_expanded": label_df,
             "05_readability": readability_df,
-            "06_readability_input_audit": input_audit_df,
             "07_term_vocabulary": vocabulary_df,
-            "08_segmented_answers": segmented_output,
             **overall_results,
             **mdiscern_results,
             **question_results,

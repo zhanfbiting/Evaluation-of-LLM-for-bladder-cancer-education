@@ -455,6 +455,12 @@ def high_score_high_risk_analysis(
             high_score_high_risk_label_summary["出现频数"] / len(high_score_high_risk_cases)
         )
 
+    # Reader-facing case tables use the paper-question numbering.
+    high_score_high_risk_cases = high_score_high_risk_cases.copy()
+    high_score_high_risk_cases["question_id"] = high_score_high_risk_cases["paper_question_id"].map(
+        lambda value: f"Q{int(value)}"
+    )
+
     return {
         "risk_ahp_weights": ahp_weight_df,
         "risk_ahp_consistency": ahp_consistency_df,

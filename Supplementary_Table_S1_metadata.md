@@ -1,7 +1,7 @@
-# Supplementary Table S1 Metadata
+# Supplementary Table S1: Data Source and Counting
 
-- Retrieval start date: 2025-11-02.
-- Retrieval end date: 2025-11-02.
-- Retrieval design: one-time snapshot; no weekly export series was used.
-- Counting unit: each platform-exported related-search line was counted as one raw occurrence. Repeated lines within the snapshot were retained in the raw occurrence count; unique normalized expressions were counted separately after duplicate and overlap handling.
-- Parent-term rank or relative popularity was available for parent hot-search terms, not as independent search volume for each related-search line.
+The platform data were retrieved in one export on November 2, 2025. The records cover November 2024 through October 2025 and are organized by week; the research team did not make separate weekly exports.
+
+Each related-search line in the weekly records was counted as one raw occurrence. Repeated phrases appearing in different weeks were retained in the raw occurrence count. Exact or semantically equivalent phrases were normalized and merged separately for the unique-entry count.
+
+The export contained 1,713 related-search lines. After excluding 41 lines without bladder- or bladder-cancer-related wording, 1,672 entries remained for screening.

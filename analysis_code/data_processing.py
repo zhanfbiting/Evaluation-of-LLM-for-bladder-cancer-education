@@ -14,8 +14,6 @@ import config
 
 
 SENTENCE_SPLIT_REGEX = re.compile(r"[。！？；!?;]+")
-TOKEN_SEPARATOR = "/"
-QUESTION_SEPARATOR_PATTERN = r'[\/\s，,。！？!?；;：:"“”‘’（）()、]*'
 PURE_PUNCTUATION_REGEX = re.compile(r"^[\W_]+$", re.UNICODE)
 
 
@@ -112,10 +110,17 @@ def load_score_table() -> pd.DataFrame:
         for line in handle:
             payload = json.loads(line)
             result = payload["result"]
+            paper_to_source = {
+                int(paper): int(source)
+                for source, paper, *_ in config.QUESTION_META
+            }
+            paper_question_id = int(payload["question_id"])
+            if paper_question_id not in paper_to_source:
+                raise ValueError(f"Unknown paper question ID: {paper_question_id}")
             row = {
                 "model_under_evaluation": payload["model_under_evaluation"],
                 "model_label": config.MODEL_LABEL_MAP[payload["model_under_evaluation"]],
-                "question_id": payload["question_id"],
+                "question_id": paper_to_source[paper_question_id],
                 "question_text": payload["question_text"],
                 "one_sentence_summary": result["one_sentence_summary"],
                 "strengths": result["strengths"],
@@ -268,86 +273,6 @@ def _read_docx_as_text(path: Path) -> str:
     return "\n".join(paragraphs)
 
 
-def _build_heading_pattern(question_id: int, question_text: str) -> re.Pattern[str]:
-    chars = [ch for ch in question_text if ch not in config.PUNCT_STRIP_CHARS and not ch.isspace()]
-    if not chars:
-        raise ValueError(f"问题 `{question_text}` 无法构建标题匹配模式。")
-    body = QUESTION_SEPARATOR_PATTERN.join(re.escape(ch) for ch in chars)
-    prefix = rf"(?:^|\n+)\s*(?:{question_id}[./、/\s]*)?"
-    suffix = QUESTION_SEPARATOR_PATTERN + r"(?=\s*(?:\n|$))"
-    return re.compile(prefix + body + suffix)
-
-
-def _contains_content(token: str) -> bool:
-    return bool(re.search(r"[0-9A-Za-z\u4e00-\u9fff]", token))
-
-
-def split_segmented_answers(question_meta: pd.DataFrame) -> pd.DataFrame:
-    rows = []
-    for model_id in config.MODEL_ID_ORDER:
-        full_text = _read_docx_as_text(config.MODEL_SEGMENTED_DOCX_MAP[model_id])
-        matches = []
-        for record in question_meta.to_dict(orient="records"):
-            pattern = _build_heading_pattern(record["question_id"], record["question_text"])
-            found = list(pattern.finditer(full_text))
-            if len(found) == 0:
-                raise ValueError(
-                    f"模型 `{model_id}` 的分词文档中，问题 {record['question_id']} 标题匹配到 0 次。"
-                )
-            match = found[-1]
-            matches.append(
-                {
-                    "question_id": record["question_id"],
-                    "question_text": record["question_text"],
-                    "question_short": record["question_short"],
-                    "start": match.start(),
-                    "answer_start": match.end(),
-                    "heading_match_count": len(found),
-                }
-            )
-        matches = sorted(matches, key=lambda item: item["start"])
-        for index, item in enumerate(matches):
-            next_start = matches[index + 1]["start"] if index + 1 < len(matches) else len(full_text)
-            answer_segment = full_text[item["answer_start"] : next_start].strip()
-            tokens = [token.strip() for token in answer_segment.split(TOKEN_SEPARATOR) if token.strip()]
-            rows.append(
-                {
-                    "model_under_evaluation": model_id,
-                    "model_label": config.MODEL_LABEL_MAP[model_id],
-                    "question_id": item["question_id"],
-                    "question_text": item["question_text"],
-                    "segmented_answer_text": answer_segment,
-                    "segmented_token_count": len(tokens),
-                    "segmented_tokens": tokens,
-                    "heading_match_count": item["heading_match_count"],
-                }
-            )
-    df = pd.DataFrame(rows).sort_values(["question_id", "model_under_evaluation"]).reset_index(drop=True)
-    expected_rows = len(config.MODEL_ID_ORDER) * len(config.QUESTION_META)
-    if len(df) != expected_rows:
-        raise ValueError(f"分词回答表行数异常，期望 {expected_rows} 行，实际 {len(df)} 行。")
-    return df
-
-
-def _count_professional_terms(tokens: list[str], term_vocab: set[str]) -> Counter:
-    term_counts: Counter = Counter()
-    max_length = max(len(term) for term in term_vocab)
-    for start_index, token in enumerate(tokens):
-        if not _contains_content(token):
-            continue
-        current = ""
-        for offset in range(start_index, len(tokens)):
-            next_token = tokens[offset]
-            if not _contains_content(next_token):
-                break
-            current += next_token
-            if len(current) > max_length:
-                break
-            if current in term_vocab:
-                term_counts[current] += 1
-    return term_counts
-
-
 def _character_count(text: str) -> int:
     """Count letters and digits; whitespace, punctuation, and symbols are excluded."""
     return sum(char.isalnum() for char in text)
@@ -396,25 +321,14 @@ def _medical_character_matches(text: str, terms: set[str]) -> tuple[int, Counter
 
 def build_readability_table(
     answer_text_df: pd.DataFrame,
-    segmented_answer_df: pd.DataFrame,
     term_vocab: set[str],
-) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Calculate C, S and T on authoritative raw answers, without calibration.
-
-    Historical segmentation is retained for input identity audit only. Medical
-    character coverage is counted directly on the same raw text used for C/S.
-    """
+) -> pd.DataFrame:
+    """Calculate C, S, T and R directly from complete original responses."""
     keys = ["model_under_evaluation", "question_id"]
-    if answer_text_df.duplicated(keys).any() or segmented_answer_df.duplicated(keys).any():
+    if answer_text_df.duplicated(keys).any():
         raise ValueError("Duplicate product/question input keys.")
-    merged = answer_text_df.merge(
-        segmented_answer_df[keys + ["segmented_answer_text"]],
-        on=keys, how="left", validate="one_to_one",
-    )
-    if merged["segmented_answer_text"].isna().any():
-        raise ValueError("Missing historical segmentation input.")
-    readability_rows, audit_rows = [], []
-    for record in merged.to_dict(orient="records"):
+    readability_rows = []
+    for record in answer_text_df.to_dict(orient="records"):
         text = record["answer_text"]
         chars = _character_count(text)
         if not chars:
@@ -427,26 +341,13 @@ def build_readability_table(
         sentence_length = chars / sentences
         readability_rows.append({
             **{key: record[key] for key in ["model_under_evaluation", "model_label", "question_id", "question_text"]},
-            "answer_text": text, "total_chars": chars,
-            "sentence_count": sentences, "avg_sentence_length": sentence_length,
+            "answer_text": text,
+            "total_chars": chars,
+            "sentence_count": sentences,
+            "avg_sentence_length": sentence_length,
             "medical_term_chars": medical_chars,
             "medical_term_matches": sum(counts.values()),
             "professional_term_ratio": ratio,
             "R": 17.5255 + 0.0024 * chars + 0.04415 * sentence_length - 18.3344 * (1 - ratio),
         })
-        raw_key = "".join(char for char in text if char.isalnum())
-        segmented_key = "".join(char for char in record["segmented_answer_text"] if char.isalnum())
-        from difflib import SequenceMatcher
-        audit_rows.append({
-            **{key: record[key] for key in keys},
-            "source_file": f"source_data/model_outputs/{config.MODEL_DOCX_MAP[record['model_under_evaluation']].name}",
-            "historical_segmentation_file": f"source_data/model_outputs/{config.MODEL_SEGMENTED_DOCX_MAP[record['model_under_evaluation']].name}",
-            "normalized_text_equal": raw_key == segmented_key,
-            "normalized_text_similarity": SequenceMatcher(None, raw_key, segmented_key, autojunk=False).ratio(),
-            "analysis_text": "original raw response",
-            "term_ratio_definition": "non-overlapping medical-term characters / total letters and digits",
-            "product_calibration_applied": False,
-        })
-    df = pd.DataFrame(readability_rows).sort_values(keys).reset_index(drop=True)
-    audit = pd.DataFrame(audit_rows).sort_values(keys).reset_index(drop=True)
-    return df, audit
+    return pd.DataFrame(readability_rows).sort_values(keys).reset_index(drop=True)

@@ -10,14 +10,13 @@ Repository: `https://github.com/zhanfbiting/Evaluation-of-LLM-for-bladder-cancer
 
 ## Derived files
 
-Readability is reproduced by running `python rebuild_readability.py` from `analysis_code/`. Original response files are in `source_data/model_outputs/*_raw.docx`; the supplied shared glossary is `source_data/model_outputs/medical_glossary.txt`. Historical segmented filenames are explicitly mapped in `config.py` and used for identity audit only. Character coverage and R are calculated on complete original answers; no product-specific calibration is used.
+Readability is reproduced by running `python rebuild_readability.py` from `analysis_code/`. Original response files are in `source_data/model_outputs/*_raw.docx`; the supplied shared glossary is `source_data/model_outputs/medical_glossary.txt`. Character coverage and R are calculated directly from the complete original answers; no product-specific calibration is used. All submitted response-level outputs use the paper-question IDs.
 
 - `Supplementary_Data_S8_readability_response_level.csv`
 - `Supplementary_Data_S8_readability_components_summary.csv`
 - `Supplementary_Data_S8_readability_friedman.csv`
 - `Supplementary_Data_S8_readability_pairwise.csv`
 - `Supplementary_Data_S8_readability_quality_correlation.csv`
-- `Supplementary_Data_S8_readability_input_audit.csv`
 
 - `Supplementary_Data_S2_guideline_response_level_recalculated.csv`
 - `Supplementary_Data_S2_guideline_model_summary_recalculated.csv`
@@ -34,4 +33,4 @@ Readability is reproduced by running `python rebuild_readability.py` from `analy
 
 ## Collection and source-timing notes
 
-The hot-search question set was collected as a one-time snapshot on November 2, 2025; a weekly export frequency is therefore not applicable. Guideline-related scoring used the documented source versions available before the March 10, 2026 response-collection cutoff, as listed in Supplementary Data S2.
+The platform data were retrieved in one export on November 2, 2025. The records cover November 2024 through October 2025 and are organized by week; the study team did not make separate weekly exports. Repeated phrases across different weeks were retained in raw occurrence counts, while exact or semantically equivalent expressions were merged separately for unique-entry counts. The 1,713 related-search lines, 41 exclusions, and 1,672 screening entries are reported in Supplementary Table S1.

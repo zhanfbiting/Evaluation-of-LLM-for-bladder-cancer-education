@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 import config
 from data_processing import (
-    build_question_meta, load_answer_text_table, split_segmented_answers,
+    build_question_meta, load_answer_text_table,
     build_professional_term_vocabulary, build_readability_table, load_score_table,
 )
 from analysis_pipeline import readability_analysis
@@ -20,9 +20,8 @@ from analysis_pipeline import readability_analysis
 def main():
     raw = load_answer_text_table()
     meta = build_question_meta()
-    segmented = split_segmented_answers(meta)
     vocabulary, vocab_table = build_professional_term_vocabulary()
-    values, audit = build_readability_table(raw, segmented, vocabulary)
+    values = build_readability_table(raw, vocabulary)
     scores = load_score_table()
     assert len(values) == 60
     assert set(values.model_under_evaluation) == set(config.MODEL_ID_ORDER)
@@ -39,12 +38,9 @@ def main():
         term_ratio_mean=("professional_term_ratio", "mean"), term_ratio_sd=("professional_term_ratio", "std"),
         R_mean=("R", "mean"), R_sd=("R", "std"),
     ).reset_index()
-    segmented_out = segmented.drop(columns=["segmented_tokens"]).copy()
     tables = {
         "02_answer_text": raw, "05_readability": values,
-        "06_readability_input_audit": audit,
         "07_term_vocabulary": vocab_table,
-        "08_segmented_answers": segmented_out,
         "readability_components_summary": components,
         **results,
     }
