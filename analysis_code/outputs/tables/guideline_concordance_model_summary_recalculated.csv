@@ -1,0 +1,4 @@
+﻿Model,n,clinical_content_mean,clinical_content_sd,full_composite_mean,full_composite_sd,evidence_source_timeliness_mean,evidence_source_timeliness_sd
+DeepSeek,20,7.325,0.8315331433088238,7.325,0.8315331433088238,0.0,0.0
+Doubao,20,5.375,1.2234012123239824,5.375,1.2234012123239824,0.0,0.0
+Yuanbao,20,7.025,0.8187763655859305,7.025,0.8187763655859305,0.0,0.0

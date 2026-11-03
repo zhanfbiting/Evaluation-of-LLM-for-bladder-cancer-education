@@ -1,0 +1,28 @@
+﻿risk_theme,model,occurrence_count,proportion
+Lack of evidence sources or guideline citations,DeepSeek,20,1.0
+Lack of evidence sources or guideline citations,Doubao,20,1.0
+Lack of evidence sources or guideline citations,Yuanbao,20,1.0
+Lack of timeliness or update statements,DeepSeek,19,0.95
+Lack of timeliness or update statements,Doubao,18,0.9
+Lack of timeliness or update statements,Yuanbao,15,0.75
+Lack of additional support resources or care pathways,DeepSeek,0,0.0
+Lack of additional support resources or care pathways,Doubao,8,0.4
+Lack of additional support resources or care pathways,Yuanbao,6,0.3
+Insufficient uncertainty or evidence grading,DeepSeek,4,0.2
+Insufficient uncertainty or evidence grading,Doubao,2,0.1
+Insufficient uncertainty or evidence grading,Yuanbao,4,0.2
+"Potentially inaccurate data, classification, or wording",DeepSeek,3,0.15
+"Potentially inaccurate data, classification, or wording",Doubao,2,0.1
+"Potentially inaccurate data, classification, or wording",Yuanbao,1,0.05
+"Insufficient adverse-effect, risk, or follow-up details",DeepSeek,1,0.05
+"Insufficient adverse-effect, risk, or follow-up details",Doubao,1,0.05
+"Insufficient adverse-effect, risk, or follow-up details",Yuanbao,1,0.05
+Insufficient individualization,DeepSeek,0,0.0
+Insufficient individualization,Doubao,1,0.05
+Insufficient individualization,Yuanbao,1,0.05
+Insufficient explanation of examination limitations or applicability,DeepSeek,0,0.0
+Insufficient explanation of examination limitations or applicability,Doubao,0,0.0
+Insufficient explanation of examination limitations or applicability,Yuanbao,2,0.1
+Overly absolute wording that may overlook individual differences,DeepSeek,0,0.0
+Overly absolute wording that may overlook individual differences,Doubao,1,0.05
+Overly absolute wording that may overlook individual differences,Yuanbao,0,0.0

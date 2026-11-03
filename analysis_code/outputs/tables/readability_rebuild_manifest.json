@@ -1,0 +1,131 @@
+{
+  "raw_response_files": {
+    "deepseek": {
+      "file": "deepseek_raw.docx",
+      "sha256": "77d853e292162139365d1d681c958b7216e0948defdc3c8f1aa8772e49df4255"
+    },
+    "doubao": {
+      "file": "doubao_raw.docx",
+      "sha256": "8711f8c2fe91e0a9f47f42a9728b6c7ce3790cd804e44dd69929fefe5a85e1f5"
+    },
+    "yuanbao": {
+      "file": "yuanbao_raw.docx",
+      "sha256": "bff26d104e2c2212ab072d0f2ec156dbfb7d2ce5b2b9cfc87348ad9ce69beae8"
+    }
+  },
+  "glossary_sha256": "aa44e88172389efdb48774d151960d99afe821054e1a94cd319d61f4570346a8",
+  "glossary_unique_terms": 16310,
+  "n_responses": 60,
+  "calibration_applied": false,
+  "characters": "letters and digits only; punctuation, symbols and whitespace excluded",
+  "sentences": "nonempty segments delimited by full stops/question/exclamation marks; numeric decimal/list dots excluded",
+  "medical_terms": "shared glossary, longest non-overlapping character matches; no product-specific adjustment",
+  "summary": [
+    {
+      "model_under_evaluation": "deepseek",
+      "model_label": "DeepSeek",
+      "chars_mean": 1290.25,
+      "chars_sd": 227.08863908174712,
+      "sentences_mean": 39.45,
+      "sentences_sd": 10.580393983312023,
+      "sentence_length_mean": 33.86268217923393,
+      "sentence_length_sd": 6.108412798887969,
+      "term_ratio_mean": 0.3680430241586716,
+      "term_ratio_sd": 0.061724225982351846,
+      "R_mean": 10.530585440347929,
+      "R_sd": 1.2013307051596345
+    },
+    {
+      "model_under_evaluation": "doubao",
+      "model_label": "Doubao",
+      "chars_mean": 796.7,
+      "chars_sd": 221.8821640800407,
+      "sentences_mean": 13.6,
+      "sentences_sd": 4.259972819285662,
+      "sentence_length_mean": 60.868437562394604,
+      "sentence_length_sd": 15.344849069704113,
+      "term_ratio_mean": 0.44794235003508637,
+      "term_ratio_sd": 0.06441893816756991,
+      "R_mean": 12.003275740863012,
+      "R_sd": 1.434808655035374
+    },
+    {
+      "model_under_evaluation": "yuanbao",
+      "model_label": "Yuanbao",
+      "chars_mean": 756.7,
+      "chars_sd": 199.99713155837748,
+      "sentences_mean": 18.35,
+      "sentences_sd": 4.976523834332979,
+      "sentence_length_mean": 42.88177032085452,
+      "sentence_length_sd": 12.697755073976179,
+      "term_ratio_mean": 0.4480494695700412,
+      "term_ratio_sd": 0.08207680731008474,
+      "R_mean": 11.115128354550691,
+      "R_sd": 1.8539850948508896
+    }
+  ],
+  "friedman": [
+    {
+      "index_col": "question_id",
+      "value_col": "R",
+      "n_blocks": 20,
+      "statistic": 18.30000000000001,
+      "p_value": 0.00010621980274645822
+    }
+  ],
+  "pairwise": [
+    {
+      "model_a": "DeepSeek",
+      "model_b": "Doubao",
+      "n_pairs": 20,
+      "statistic": 6.0,
+      "p_value": 2.6702880859375e-05,
+      "rank_biserial": -0.9428571428571428,
+      "p_value_bonferroni": 8.0108642578125e-05
+    },
+    {
+      "model_a": "DeepSeek",
+      "model_b": "Yuanbao",
+      "n_pairs": 20,
+      "statistic": 59.0,
+      "p_value": 0.08969497680664062,
+      "rank_biserial": -0.4380952380952381,
+      "p_value_bonferroni": 0.2690849304199219
+    },
+    {
+      "model_a": "Doubao",
+      "model_b": "Yuanbao",
+      "n_pairs": 20,
+      "statistic": 39.0,
+      "p_value": 0.012079238891601562,
+      "rank_biserial": 0.6285714285714286,
+      "p_value_bonferroni": 0.03623771667480469
+    }
+  ],
+  "correlation": [
+    {
+      "group": "整体",
+      "n": 60,
+      "spearman_rho": -0.2190162086073078,
+      "p_value": 0.0927075369365168
+    },
+    {
+      "group": "DeepSeek",
+      "n": 20,
+      "spearman_rho": -0.20284137867635785,
+      "p_value": 0.39106244875470664
+    },
+    {
+      "group": "Doubao",
+      "n": 20,
+      "spearman_rho": -0.037286910107749094,
+      "p_value": 0.8759789219194329
+    },
+    {
+      "group": "Yuanbao",
+      "n": 20,
+      "spearman_rho": -0.017511849956506446,
+      "p_value": 0.9415849847589224
+    }
+  ]
+}
